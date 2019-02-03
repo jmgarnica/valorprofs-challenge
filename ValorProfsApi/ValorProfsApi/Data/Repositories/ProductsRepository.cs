@@ -1,54 +1,50 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ValorProfsApi.Data.Entities;
 
 namespace ValorProfsApi.Data.Repositories
 {
     public class ProductsRepository : IProductsRepository
     {
-        public void Delete(long id)
+        private readonly DataContext _context;
+
+        public ProductsRepository(DataContext context)
         {
-            //TODO:
+            this._context = context;
         }
 
-        public long Insert(Product product)
+        public async Task<long> DeleteAsync(Product product)
         {
-            //TODO:
-            return 1;
+            var result = this._context.Remove<Product>(product);
+            await _context.SaveChangesAsync();
+            return result.Entity.Id;
         }
 
-        public List<Product> Select()
+        public async Task<long> InsertAsync(Product product)
         {
-            //TODO:
-            return new List<Product>() { new Product()
-            {
-                Available = true,
-                DateCreated = DateTime.UtcNow,
-                Description = "Descripton",
-                Id =1,
-                Name = "Name",
-                Price= 5.50
-            }};
+            var result = this._context.Add<Product>(product);
+            await _context.SaveChangesAsync();
+            return result.Entity.Id;        
         }
 
-        public Product Select(long id)
+        public async Task<IEnumerable<Product>> SelectAsync()
         {
-            //TODO:
-            //return null;
-            return new Product()
-            {
-                Available = true,
-                DateCreated = DateTime.UtcNow,
-                Description = "Descripton",
-                Id = id,
-                Name = "Name",
-                Price = 5.50
-            };
+            var products = await this._context.Products.ToListAsync();
+            return products;
         }
 
-        public void Update(long id, Product product)
+        public async Task<Product> SelectAsync(long id)
         {
-            //TODO:
+            var product = await this._context.Products.FirstOrDefaultAsync(p => p.Id == id);
+            return product;
+        }
+
+        public async Task<long> UpdateAsync(long id, Product product)
+        {
+            var result = this._context.Update<Product>(product);
+            await _context.SaveChangesAsync();
+            return result.Entity.Id;
         }
     }
 }

@@ -10,8 +10,14 @@ namespace ValorProfsApi.Bootstrapping
     {
         public AutoMapperProfiles()
         {
-            CreateMap<ProductToCreateDto, Product>();
+            CreateMap<ProductToCreateDto, Product>()
+            .ForMember(dest => dest.DateCreated, opt =>
+            {
+                opt.MapFrom(src => DateTime.UtcNow);
+            });
+
             CreateMap<ProductToUpdateDto, Product>();
+
             CreateMap<Product, ProductToListDto>();
         }
     }

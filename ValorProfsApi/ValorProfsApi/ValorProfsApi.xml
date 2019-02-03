@@ -51,7 +51,7 @@
              the product will equal to the entered value.
             </summary>
             <param name="id"></param>
-            <param name="product"></param>
+            <param name="productToUpdate"></param>
         </member>
         <member name="M:ValorProfsApi.Controllers.ProductsController.Delete(System.Int64)">
             <summary>

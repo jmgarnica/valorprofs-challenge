@@ -6,6 +6,7 @@ using ValorProfsApi.Data.Entities;
 using ValorProfsApi.Data.Repositories;
 using AutoMapper;
 using System;
+using System.Threading.Tasks;
 
 namespace ValorProfsApi.Controllers
 {
@@ -37,11 +38,11 @@ namespace ValorProfsApi.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<ProductToListDto>), 200)]
         [ProducesResponseType(401)]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
             List<ProductToListDto> result = new List<ProductToListDto>();
 
-            List<Product> products = this._productsRepository.Select();
+            IEnumerable<Product> products = await this._productsRepository.SelectAsync();
             
             foreach (var product in products)
             {
@@ -59,9 +60,9 @@ namespace ValorProfsApi.Controllers
         [ProducesResponseType(typeof(Product), 200)]
         [ProducesResponseType(typeof(long), 404)]
         [ProducesResponseType(401)]
-        public IActionResult Get(long id)
+        public async Task<IActionResult> Get(long id)
         {
-            Product product = this._productsRepository.Select(id);
+            Product product = await this._productsRepository.SelectAsync(id);
 
             if (product == null)
             {
@@ -79,12 +80,10 @@ namespace ValorProfsApi.Controllers
         [ProducesResponseType(typeof(Product), 201)]
         [ProducesResponseType(401)]
         [ProducesResponseType(403)]
-        public IActionResult Post(ProductToCreateDto productToCreate)
+        public async Task<IActionResult> Post(ProductToCreateDto productToCreate)
         {
             var product = this._mapper.Map<Product>(productToCreate);
-            product.DateCreated = DateTime.UtcNow;
-            long id = this._productsRepository.Insert(product);
-
+            long id = await this._productsRepository.InsertAsync(product);
             return Created(id.ToString(), product);
         }
 
@@ -93,26 +92,45 @@ namespace ValorProfsApi.Controllers
         ///  the product will equal to the entered value.
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="product"></param>
+        /// <param name="productToUpdate"></param>
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(Product), 201)]
         [ProducesResponseType(typeof(Product), 200)]
         [ProducesResponseType(401)]
         [ProducesResponseType(403)]
-        public IActionResult Put(long id, ProductToUpdateDto productToUpdate)
-        {            
-            var product = this._mapper.Map<Product>(productToUpdate);
-
-            Product productFromDb = this._productsRepository.Select(id);
+        public async Task<IActionResult> Put(long id, ProductToUpdateDto productToUpdate)
+        {
+            Product productFromDb = await this._productsRepository.SelectAsync(id);
             if (productFromDb == null)
             {
-                product.DateCreated = DateTime.UtcNow;
-                long newId = this._productsRepository.Insert(product);                
+                var product = this._mapper.Map<Product>(productToUpdate);
+                long newId = await this._productsRepository.InsertAsync(product);   
                 return Created(newId.ToString(), product);
-            }            
-            this._productsRepository.Update(productFromDb.Id, product);
-            return Ok(product);
+            }      
+            UpdateProduct(productToUpdate, productFromDb);
+            await this._productsRepository.UpdateAsync(productFromDb.Id, productFromDb);
+            return Ok(productFromDb);
+        }
+
+        private void UpdateProduct(ProductToUpdateDto src, Product dest)
+        {
+            if (src.Name != null)
+            {
+                dest.Name = src.Name;
+            }
+            if (src.Price != null)
+            {
+                dest.Price = src.Price.Value;
+            }
+            if (src.Available != null)
+            {
+                dest.Available = src.Available.Value;
+            }
+            if (src.Description != null)
+            {
+                dest.Description = src.Description;
+            }
         }
 
         /// <summary>
@@ -125,13 +143,13 @@ namespace ValorProfsApi.Controllers
         [ProducesResponseType(typeof(long), 404)]
         [ProducesResponseType(401)]
         [ProducesResponseType(403)]
-        public IActionResult Delete(long id)
+        public async Task<IActionResult> Delete(long id)
         {
-            Product productFromDb = this._productsRepository.Select(id);
+            Product productFromDb = await this._productsRepository.SelectAsync(id);
             if (productFromDb != null)
             {
-                this._productsRepository.Delete(id);
-                return Ok(id);
+                long deletedId = await this._productsRepository.DeleteAsync(productFromDb);
+                return Ok(deletedId);
             }
             return NotFound(id);
         }

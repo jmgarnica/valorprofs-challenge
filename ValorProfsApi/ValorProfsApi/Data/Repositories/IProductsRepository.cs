@@ -6,10 +6,14 @@ namespace ValorProfsApi.Data.Repositories
 {
     public interface IProductsRepository
     {
-        List<Product> Select();
-        Product Select(long id);
-        long Insert(Product product);
-        void Update(long id, Product product);
-        void Delete(long id);
+        Task<IEnumerable<Product>> SelectAsync();
+
+        Task<Product> SelectAsync(long id);
+
+        Task<long> InsertAsync(Product product);
+
+        Task<long> UpdateAsync(long id, Product product);
+
+        Task<long> DeleteAsync(Product product);
     }
 }
