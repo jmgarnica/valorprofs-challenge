@@ -5,6 +5,6 @@ namespace ValorProfsApi.Data.Repositories
 {
     public interface IAuthRepository
     {
-        Task<User> Login(string username, string password);
+        Task<User> LoginAsync(string username, string password);
     }
 }

@@ -39,7 +39,7 @@ namespace ValorProfsApi.Controllers
         public async Task<IActionResult> Login(UserToLoginDto user)
         {
             user.Username = user.Username.ToLower();
-            var userFromRepo = await _repo.Login(user.Username, user.Password);
+            var userFromRepo = await _repo.LoginAsync(user.Username, user.Password);
             if (userFromRepo == null)
             {
                 return Unauthorized();

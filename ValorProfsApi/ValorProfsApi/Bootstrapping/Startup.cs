@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -15,6 +16,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using ValorProfsApi.Data;
 using ValorProfsApi.Data.Repositories;
 
 namespace ValorProfsApi.Bootstrapping
@@ -31,6 +33,7 @@ namespace ValorProfsApi.Bootstrapping
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc()
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                     .AddJsonOptions(opt =>
@@ -49,11 +52,13 @@ namespace ValorProfsApi.Bootstrapping
                       ValidateIssuer = false,
                       ValidateAudience = false,
                   };
-              });
+              });            
+
+            //Repositories
             services.AddTransient<IAuthRepository, AuthRepository>();
             services.AddTransient<IProductsRepository, ProductsRepository>();
 
-            //// Auto Mapper Configurations
+            // Auto Mapper Configurations
             var mappingConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new AutoMapperProfiles());
@@ -111,8 +116,8 @@ namespace ValorProfsApi.Bootstrapping
                 });
             }
             app.UseHttpsRedirection();
-
-            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
+            
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
