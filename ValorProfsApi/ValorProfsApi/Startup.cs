@@ -57,6 +57,18 @@ namespace ValorProfsApi
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "ValorProfs Api", Version = "v1" });
+                c.DescribeAllEnumsAsStrings();
+
+                // Add api key definition
+                c.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                {
+                    In = "header",
+                    Description = "Please enter JWT with Bearer into field",
+                    Name = "Authorization",
+                    Type = "apiKey"
+                });
+                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
+                { "Bearer", Enumerable.Empty<string>() },});
 
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"ValorProfsApi.xml";
