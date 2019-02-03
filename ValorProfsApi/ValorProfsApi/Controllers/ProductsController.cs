@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using ValorProfsApi.Data.Entities;
 
@@ -7,6 +8,7 @@ namespace ValorProfsApi.Controllers
     /// <summary>
     /// RESTful  endpoints to handle products resource
     /// </summary>
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
@@ -35,7 +37,8 @@ namespace ValorProfsApi.Controllers
         /// </summary>
         /// <param name="value"></param>
         [HttpPost]
-        public void Post([FromBody] Product value)
+        [Authorize(Roles ="Admin")]
+        public void Post(Product value)
         {
         }
 
@@ -46,7 +49,8 @@ namespace ValorProfsApi.Controllers
         /// <param name="id"></param>
         /// <param name="value"></param>
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Product value)
+        [Authorize(Roles = "Admin")]
+        public void Put(int id, Product value)
         {
         }
 
@@ -55,6 +59,7 @@ namespace ValorProfsApi.Controllers
         /// </summary>
         /// <param name="id"></param>
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public void Delete(int id)
         {
         }

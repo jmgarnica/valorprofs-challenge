@@ -4,6 +4,18 @@
         <name>ValorProfsApi</name>
     </assembly>
     <members>
+        <member name="T:ValorProfsApi.Controllers.AuthController">
+            <summary>
+            Authorization controller
+            </summary>
+        </member>
+        <member name="M:ValorProfsApi.Controllers.AuthController.Login(ValorProfsApi.Data.Entities.UserToLoginDto)">
+            <summary>
+            Authorize an user
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
         <member name="T:ValorProfsApi.Controllers.ProductsController">
             <summary>
             RESTful  endpoints to handle products resource
