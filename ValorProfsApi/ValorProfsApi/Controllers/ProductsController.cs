@@ -36,6 +36,7 @@ namespace ValorProfsApi.Controllers
         /// </summary>
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<ProductToListDto>), 200)]
+        [ProducesResponseType(401)]
         public IActionResult Get()
         {
             List<ProductToListDto> result = new List<ProductToListDto>();
@@ -57,6 +58,7 @@ namespace ValorProfsApi.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Product), 200)]
         [ProducesResponseType(typeof(long), 404)]
+        [ProducesResponseType(401)]
         public IActionResult Get(long id)
         {
             Product product = this._productsRepository.Select(id);
@@ -76,6 +78,7 @@ namespace ValorProfsApi.Controllers
         [Authorize(Roles ="Admin")]
         [ProducesResponseType(typeof(Product), 201)]
         [ProducesResponseType(401)]
+        [ProducesResponseType(403)]
         public IActionResult Post(ProductToCreateDto productToCreate)
         {
             var product = this._mapper.Map<Product>(productToCreate);
@@ -96,6 +99,7 @@ namespace ValorProfsApi.Controllers
         [ProducesResponseType(typeof(Product), 201)]
         [ProducesResponseType(typeof(Product), 200)]
         [ProducesResponseType(401)]
+        [ProducesResponseType(403)]
         public IActionResult Put(long id, ProductToUpdateDto productToUpdate)
         {            
             var product = this._mapper.Map<Product>(productToUpdate);
@@ -120,6 +124,7 @@ namespace ValorProfsApi.Controllers
         [ProducesResponseType(typeof(long), 200)]
         [ProducesResponseType(typeof(long), 404)]
         [ProducesResponseType(401)]
+        [ProducesResponseType(403)]
         public IActionResult Delete(long id)
         {
             Product productFromDb = this._productsRepository.Select(id);
