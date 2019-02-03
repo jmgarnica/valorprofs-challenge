@@ -8,7 +8,7 @@ namespace ValorProfsApi.Data.Repositories
         public Task<User> Login(string username, string password)
         {
             //TODO: Add APS.NET Identity
-            User user = new User() { Id = 1, Username = username, Password = password };
+            User user = new User() { Id = 1, Username = username, Password = password, Role="Admin" };
             return Task<User>.Factory.StartNew(() => user); 
         }
     }
