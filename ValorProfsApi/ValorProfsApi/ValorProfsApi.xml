@@ -9,7 +9,7 @@
             Authorization controller
             </summary>
         </member>
-        <member name="M:ValorProfsApi.Controllers.AuthController.Login(ValorProfsApi.Data.Entities.UserToLoginDto)">
+        <member name="M:ValorProfsApi.Controllers.AuthController.Login(ValorProfsApi.Dtos.UserToLoginDto)">
             <summary>
             Authorize an user
             </summary>
@@ -18,37 +18,44 @@
         </member>
         <member name="T:ValorProfsApi.Controllers.ProductsController">
             <summary>
-            RESTful  endpoints to handle products resource
+            RESTful  endpoints to handle products.
             </summary>
+        </member>
+        <member name="M:ValorProfsApi.Controllers.ProductsController.#ctor(ValorProfsApi.Data.Repositories.IProductsRepository,AutoMapper.IMapper)">
+            <summary>
+            Creates a ProductsController.
+            </summary>
+            <param name="productsRepository"></param>
+            <param name="mapper"></param>
         </member>
         <member name="M:ValorProfsApi.Controllers.ProductsController.Get">
             <summary>
-            Return the list of all Products, with the basic information about the products.
+            Returns the list of all Products, with the basic information about the products.
             </summary>
         </member>
-        <member name="M:ValorProfsApi.Controllers.ProductsController.Get(System.Int32)">
+        <member name="M:ValorProfsApi.Controllers.ProductsController.Get(System.Int64)">
             <summary>
-             Return all informations about the product with entered id.
+             Returns all informations about the product with entered id.
             </summary>
             <param name="id"></param>
         </member>
-        <member name="M:ValorProfsApi.Controllers.ProductsController.Post(ValorProfsApi.Data.Entities.Product)">
+        <member name="M:ValorProfsApi.Controllers.ProductsController.Post(ValorProfsApi.Dtos.ProductToCreateDto)">
             <summary>
-            Insert the entered product in the DB
+            Inserts the entered product in the DB.
             </summary>
-            <param name="value"></param>
+            <param name="productToCreate"></param>
         </member>
-        <member name="M:ValorProfsApi.Controllers.ProductsController.Put(System.Int32,ValorProfsApi.Data.Entities.Product)">
+        <member name="M:ValorProfsApi.Controllers.ProductsController.Put(System.Int64,ValorProfsApi.Dtos.ProductToUpdateDto)">
             <summary>
-             Modify the product with the entered id, after the modification 
+             Modifies the product with the entered id, after the modification 
              the product will equal to the entered value.
             </summary>
             <param name="id"></param>
-            <param name="value"></param>
+            <param name="product"></param>
         </member>
-        <member name="M:ValorProfsApi.Controllers.ProductsController.Delete(System.Int32)">
+        <member name="M:ValorProfsApi.Controllers.ProductsController.Delete(System.Int64)">
             <summary>
-            Delete the product with the entered id from the DB
+            Deletes the product with the entered id from the DB.
             </summary>
             <param name="id"></param>
         </member>

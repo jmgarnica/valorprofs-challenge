@@ -1,4 +1,4 @@
-﻿namespace ValorProfsApi.Data.Entities
+﻿namespace ValorProfsApi.Dtos
 {
     public class ProductToListDto
     {

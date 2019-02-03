@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using ValorProfsApi.Data.Entities;
+using ValorProfsApi.Dtos;
 using ValorProfsApi.Data.Repositories;
 
 namespace ValorProfsApi.Controllers
@@ -34,6 +34,8 @@ namespace ValorProfsApi.Controllers
         /// <param name="user"></param>
         /// <returns></returns>
         [HttpPost("login")]
+        [ProducesResponseType(typeof(TokenDto), 200)]
+        [ProducesResponseType(401)]
         public async Task<IActionResult> Login(UserToLoginDto user)
         {
             user.Username = user.Username.ToLower();
@@ -63,9 +65,9 @@ namespace ValorProfsApi.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return Ok(new
+            return Ok(new TokenDto()
             {
-                token = tokenHandler.WriteToken(token)
+                Token = tokenHandler.WriteToken(token)
             });
         }
     }
