@@ -1,3 +1,5 @@
 # Valor Profs Challenge
 
-See the description of the challenge in the [wiki](https://github.com/jmgarnica/valorprofs-challenge/wiki/Challenge-Description) of this repo.
+See the [wiki](https://github.com/jmgarnica/valorprofs-challenge/wiki) of this repo, to find the description of the challenge and the readme of the project.
+
+

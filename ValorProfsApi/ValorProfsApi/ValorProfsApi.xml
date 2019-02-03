@@ -11,24 +11,24 @@
         </member>
         <member name="M:ValorProfsApi.Controllers.ProductsController.Get">
             <summary>
-            GET the list of all Products, with the basic information about the products.
+            Return the list of all Products, with the basic information about the products.
             </summary>
         </member>
         <member name="M:ValorProfsApi.Controllers.ProductsController.Get(System.Int32)">
             <summary>
-             GET All informations about the product with entered id.
+             Return all informations about the product with entered id.
             </summary>
             <param name="id"></param>
         </member>
-        <member name="M:ValorProfsApi.Controllers.ProductsController.Post(System.String)">
+        <member name="M:ValorProfsApi.Controllers.ProductsController.Post(ValorProfsApi.Data.Entities.Product)">
             <summary>
-            POST Insert the entered product in the DB
+            Insert the entered product in the DB
             </summary>
             <param name="value"></param>
         </member>
-        <member name="M:ValorProfsApi.Controllers.ProductsController.Put(System.Int32,System.String)">
+        <member name="M:ValorProfsApi.Controllers.ProductsController.Put(System.Int32,ValorProfsApi.Data.Entities.Product)">
             <summary>
-             PUT Modify the product with the entered id, after the modification 
+             Modify the product with the entered id, after the modification 
              the product will equal to the entered value.
             </summary>
             <param name="id"></param>
@@ -36,7 +36,7 @@
         </member>
         <member name="M:ValorProfsApi.Controllers.ProductsController.Delete(System.Int32)">
             <summary>
-            DELETE the product with the entered id from the DB
+            Delete the product with the entered id from the DB
             </summary>
             <param name="id"></param>
         </member>

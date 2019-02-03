@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using ValorProfsApi.Data.Entities;
 
 namespace ValorProfsApi.Controllers
 {
@@ -14,9 +15,9 @@ namespace ValorProfsApi.Controllers
         /// Return the list of all Products, with the basic information about the products.
         /// </summary>
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<IEnumerable<ProductToListDto>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(new List<ProductToListDto>());
         }
 
         /// <summary>
@@ -24,9 +25,9 @@ namespace ValorProfsApi.Controllers
         /// </summary>
         /// <param name="id"></param>
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public ActionResult<Product> Get(int id)
         {
-            return "value";
+            return Ok(new Product());
         }
 
         /// <summary>
@@ -34,7 +35,7 @@ namespace ValorProfsApi.Controllers
         /// </summary>
         /// <param name="value"></param>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Product value)
         {
         }
 
@@ -45,7 +46,7 @@ namespace ValorProfsApi.Controllers
         /// <param name="id"></param>
         /// <param name="value"></param>
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] Product value)
         {
         }
 
