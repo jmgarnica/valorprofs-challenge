@@ -1,0 +1,19 @@
+<div class="container">
+      <div class="jumbotron" style="margin-top: 90px;">
+          <h5 class="display-3">Product details: </h5>
+          <p class="lead">Name: {{product.name}}</p>
+          <p class="lead">Id:{{product.id}} </p>
+          <p class="lead">Price: {{product.price |currency}}</p>
+          <p class="lead">Date Created: {{product.dateCreated | date}}</p>
+          <p *ngIf="product.available" class="lead">Available: <i class="fa fa-check" aria-hidden="true"></i></p>
+          <p *ngIf="!product.available" class="lead">Available: <i class="fa fa-times" aria-hidden="true"></i></p>
+          <p class="lead">Description: {{product.description}}</p>
+          <p  *ngIf="isAdmin()" class="lead">
+            <a class="btn btn-success btn-lg" [routerLink]="['/products/edit/'+product.id]" role="button">Edit</a>
+          </p>
+          <p *ngIf="isAdmin()" class="lead">
+              <a class="btn btn-danger btn-lg" (click)="deleteProduct(product.id)" href="#" role="button">Delete</a>
+          </p>
+      </div>
+  </div>
+

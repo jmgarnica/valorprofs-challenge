@@ -1,17 +1,5 @@
 <div class="container mt-5">
-  <div *ngIf="!registerMode" style="text-align: center">
-    <h1>ValorProfs Site</h1>
-    <p class="lead">Come on in to manage your products... All you need to do is sign up!</p>
-    <div class="text-center">
-      <button class="btn btn-success btn-lg mr-2" (click)="registerToggle()">Register</button>
-    </div>
-  </div>
-
-  <div *ngIf="registerMode" class="container">
-    <div class="row justify-content-center">
-      <div class="col-4">
-        <app-register (registerCancel)="cancelRegisterMode($event)"></app-register>
-      </div>
-    </div>
+  <div style="text-align: center">
+    <h1>Products Management</h1>
   </div>
 </div>

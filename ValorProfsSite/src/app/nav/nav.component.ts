@@ -10,10 +10,7 @@ import { Router } from '@angular/router';
 })
 export class NavComponent implements OnInit {
 
-  model: any = {
-    'username': 'prueba',
-    'password': 'prueba'
-    };
+  model: any = {};
 
   constructor(public authService: AuthService, private alertify: AlertifyService, private router: Router) { }
 
@@ -25,7 +22,7 @@ export class NavComponent implements OnInit {
       this.alertify.success('Logged in successfully');
     }, error => {
       this.alertify.error(error);
-      }, () => this.router.navigate(['/board']));
+      }, () => this.router.navigate(['/products']));
 
   }
   logout() {

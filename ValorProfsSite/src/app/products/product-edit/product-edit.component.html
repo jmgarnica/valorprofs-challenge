@@ -1,0 +1,22 @@
+<div class="container">
+    <div *ngIf="editForm.dirty" class="alert alert-info">
+        <p>
+          <strong>Information:</strong> You have made changes. Any unsaved changes will be lost!</p>
+    </div>
+    <div class="jumbotron" style="margin-top: 90px;">
+        <h5 class="display-3">Edit Product Id:{{product.id}}: </h5>
+        <form #editForm="ngForm" id="editForm" (ngSubmit)="updateProduct()">
+            <label for="name">Name: </label>
+            <input type="text" name="name" class="form-control" [(ngModel)]="product.name">
+            <label for="price">Price: </label>
+            <input type="text" name="price" class="form-control" [(ngModel)]="product.price">
+            <label for="available">Available: </label>
+            <input type="checkbox" name="available" class="form-control" [(ngModel)]="product.available">
+            <label for="description">Description: </label>
+            <input type="text" name="description" class="form-control" [(ngModel)]="product.description">        
+          </form>
+        <p class="lead">
+          <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-success btn-block">Save Changes</button>
+        </p>
+    </div>
+</div>

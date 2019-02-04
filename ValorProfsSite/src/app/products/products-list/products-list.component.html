@@ -1,0 +1,31 @@
+<div class="container mt-5">
+  <div *ngIf="isAdmin()" class="row"><button type="button" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Add New Product</button> </div>
+ 
+  <div class="row">
+    <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Available</th>
+            <th scope="col">Price</th>
+            <th scope="col">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr class="table-dark" *ngFor="let product of products">
+                <th scope="row">{{product.id}}</th>
+                <td>{{product.name}}</td>
+                <td *ngIf="product.available"><i class="fa fa-check" aria-hidden="true"></i></td>
+                <td *ngIf="!product.available"><i class="fa fa-times" aria-hidden="true"></i></td>
+                <td>{{product.price | currency}}</td>
+                <td>
+                    <a class="btn btn-success" [routerLink]="['/products/'+product.id]" ><i class="fa fa-search" aria-hidden="true"></i> </a>
+                    <a *ngIf="isAdmin()" class="btn btn-warning" [routerLink]="['/products/edit/'+product.id]"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    <a *ngIf="isAdmin()" class="btn btn-danger"(click)="deleteProduct(product.id)"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                </td>                    
+            </tr>
+        </tbody>
+      </table> 
+  </div>
+</div>

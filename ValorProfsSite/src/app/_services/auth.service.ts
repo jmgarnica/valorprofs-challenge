@@ -15,31 +15,26 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthService {
-  baseUrl =  environment.apiUrl + 'users';
+  baseUrl =  environment.apiUrl + 'api/auth/';
   userToken: any;
   decodedToken: any;
   jwtHelper: JwtHelperService = new JwtHelperService();
   constructor(private http: HttpClient) {}
 
   login(model: any) {
-      const resp = this.http
-      .post(this.baseUrl + '/login', model, {responseType: 'text'});
-      return resp
+    return this.http
+      .post(this.baseUrl + 'login', model)
       .pipe(
         map((response: any) => {
-          const token = response;
-          if (token) {
-            localStorage.setItem('token', token);
-            this.decodedToken = this.jwtHelper.decodeToken(token);
+          const user = response;
+          if (user) {
+            localStorage.setItem('token', user.token);
+            this.decodedToken = this.jwtHelper.decodeToken(user.token);
             console.log(this.decodedToken);
-            this.userToken = token;
+            this.userToken = user.token;
           }
         })
       );
-  }
-  register(model: any) {
-    return this.http
-      .post(this.baseUrl , model, httpOptions);
   }
 
   loggedIn() {
