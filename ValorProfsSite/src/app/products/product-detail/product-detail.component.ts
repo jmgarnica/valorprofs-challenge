@@ -36,7 +36,7 @@ export class ProductDetailComponent implements OnInit {
       this.alertify.error(error);
     }, () =>  this.router.navigate(['/products']));
   }
-  
+
   isAdmin() {
     return this.authService.decodedToken.role === 'Admin';
   }

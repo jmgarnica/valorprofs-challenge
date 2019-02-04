@@ -1,5 +1,7 @@
 <div class="container mt-5">
-  <div *ngIf="isAdmin()" class="row"><button type="button" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Add New Product</button> </div>
+  <div *ngIf="isAdmin()" class="row">
+    <a class="btn btn-success" [routerLink]="['/products/add']"><i class="fa fa-plus" aria-hidden="true"></i> Add New Product</a>
+   </div>
  
   <div class="row">
     <table class="table table-hover table-striped">

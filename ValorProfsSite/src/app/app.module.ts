@@ -24,6 +24,7 @@ import { ProductDetailComponent } from './products/product-detail/product-detail
 import { ProductDetailResolver } from './_resolvers/product-detail.resolver';
 import { ProductEditComponent } from './products/product-edit/product-edit.component';
 import { ProductEditResolver } from './_resolvers/product-edit.resolver';
+import { ProductAddComponent } from './products/product-add/product-add.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -36,7 +37,8 @@ export function tokenGetter() {
     HomeComponent,
     ProductsListComponent,
     ProductDetailComponent,
-    ProductEditComponent
+    ProductEditComponent,
+    ProductAddComponent
   ],
   imports: [
     BrowserModule,

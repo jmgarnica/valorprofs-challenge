@@ -9,6 +9,7 @@ import { ProductDetailResolver } from './_resolvers/product-detail.resolver';
 import { ProductEditComponent } from './products/product-edit/product-edit.component';
 import { ProductEditResolver } from './_resolvers/product-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { ProductAddComponent } from './products/product-add/product-add.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
      canActivate: [AuthGuard],
      children: [
        { path: 'products', component: ProductsListComponent, resolve: {products: ProductsListResolver} },
+       { path: 'products/add', component: ProductAddComponent },
        { path: 'products/:id', component: ProductDetailComponent, resolve: { product: ProductDetailResolver}},
        { path: 'products/edit/:id', component: ProductEditComponent,
        resolve: { product: ProductEditResolver}, canDeactivate: [PreventUnsavedChanges]}
