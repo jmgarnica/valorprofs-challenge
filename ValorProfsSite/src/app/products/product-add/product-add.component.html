@@ -15,14 +15,10 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text">$</span>
                     </div>
-                    <input type="text"  name="price" class="form-control" [(ngModel)]="product.price"  aria-label="Amount (to the nearest dollar)">
-                    <div class="input-group-append">
-                      <span class="input-group-text">.00</span>
-                    </div>
+                    <input type="text" placeholder="0.00" name="price" class="form-control" [(ngModel)]="product.price"  aria-label="Amount (to the nearest dollar)">                    
                   </div>
                 </div>
-              </div>
-            
+            </div>            
             <label for="available">Available: </label>
             <input type="checkbox" name="available" class="form-control" [(ngModel)]="product.available">
             <label for="description">Description: </label>
