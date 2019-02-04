@@ -301,6 +301,5 @@ package-lock.json
 
 bin
 obj
-*.db
 Properties/
 /.vscode/
